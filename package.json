@@ -1,0 +1,33 @@
+{
+  "name": "@antoniogiroz/changesets",
+  "version": "1.0.0",
+  "description": "Demo package for changesets",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "types": "./dist/types/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run build"
+  },
+  "author": "Antonio Giroz",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antoniogiroz/changesets.git"
+  },
+  "bugs": {
+    "url": "https://github.com/antoniogiroz/changesets/issues"
+  },
+  "homepage": "https://github.com/antoniogiroz/changesets#readme",
+  "devDependencies": {
+    "typescript": "^5.0.2"
+  }
+}
