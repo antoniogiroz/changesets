@@ -21,7 +21,8 @@ jobs:
         uses: changesets/action@v1
         with:
           publish: false # No publicamos aquí, solo creamos el PR con los cambios de versión
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Utilizamos el token de GitHub para que la action pueda crear PRs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   publish:
     needs: version
