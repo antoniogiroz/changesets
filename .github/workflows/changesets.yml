@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: 16
       - name: Install dependencies
-        run: pnpm install
+        run: npm install
       - name: Create Release Pull Request or Update Existing One
         uses: changesets/action@v1
         with:
@@ -35,8 +35,8 @@ jobs:
           node-version: 16
           registry-url: 'https://registry.npmjs.org'
       - name: Install dependencies
-        run: pnpm install
+        run: npm install
       - name: Publish to npm and GitHub
-        run: pnpm run release
+        run: npm run release
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # Utilizamos el token de npm para publicar
