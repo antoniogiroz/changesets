@@ -1,0 +1,42 @@
+name: Changesets
+
+on:
+  push:
+    branches:
+      - main # Asegúrate de que este sea el nombre de la rama principal de tu repositorio
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - name: Install dependencies
+        run: pnpm install
+      - name: Create Release Pull Request or Update Existing One
+        uses: changesets/action@v1
+        with:
+          publish: false # No publicamos aquí, solo creamos el PR con los cambios de versión
+          token: ${{ secrets.GITHUB_TOKEN }} # Utilizamos el token de GitHub para que la action pueda crear PRs
+
+  publish:
+    needs: version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          registry-url: 'https://registry.npmjs.org'
+      - name: Install dependencies
+        run: pnpm install
+      - name: Publish to npm and GitHub
+        run: pnpm run release
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # Utilizamos el token de npm para publicar
