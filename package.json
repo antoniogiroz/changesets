@@ -26,7 +26,8 @@
     "lint": "eslint --ext .ts src",
     "build": "tsc",
     "prepare": "npm run build",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "release": "npm run build && changeset publish"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.37.0",
