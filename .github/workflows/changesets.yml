@@ -39,5 +39,5 @@ jobs:
       - name: Publish to npm and GitHub
         run: npm run release
         env:
-          GITHUB_TOKEN: ${{ secrects.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # Utilizamos el token de npm para publicar
