@@ -1,5 +1,9 @@
 name: Publish
 on:
+  workflow_run:
+    workflows: [CI]
+    types:
+      - completed
   push:
     branches:
       - main
@@ -8,16 +12,20 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
   publish:
-    needs: ci
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js 16.x
+        uses: actions/setup-node@v3
         with:
           node-version: 16.x
 
-      - run: npm install --frozen-lockfile
+      - name: Install Dependencies
+        run: npm install --frozen-lockfile
+
       - name: Create Release Pull Request or Publish
         id: changesets
         uses: changesets/action@v1
